@@ -49,6 +49,8 @@ describe("Reading Blocks", function(){
     expect(detected[0]).toEqual({x: 0, y: 10, width: 10, height: 10});
     expect(detected[1]).toEqual({x: 20, y: 10, width: 10, height: 10});
     expect(detected[2]).toEqual({x: 50, y: 10, width: 10, height: 10});
+
+    expect(detected.length).toEqual(3);
   });
 
   // it("Should detect the blocks", function(){
