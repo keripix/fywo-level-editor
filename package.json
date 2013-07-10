@@ -1,0 +1,18 @@
+{
+  "name": "fywo-level-editor",
+  "version": "0.1.0",
+  "description": "To make [Find-Your-Way-Out](https://github.com/keripix/find-your-way-out) levels easier.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/keripix/fywo-level-editor"
+  },
+  "author": "Akbar Hidayat",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/keripix/fywo-level-editor/issues"
+  }
+}
