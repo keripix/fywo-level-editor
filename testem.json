@@ -1,0 +1,13 @@
+{
+    "src_files": [
+        "libs/**/*.js",
+        "tests/**/*Spec.js"
+    ],
+    "launch_in_dev": ["node"],
+    "launchers": {
+        "Node": {
+            "command": "jasmine-node tests"
+        }
+    },
+    "before_tests": "browserify index.js -o editor.js"
+}

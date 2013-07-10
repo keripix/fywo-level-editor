@@ -14,5 +14,8 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/keripix/fywo-level-editor/issues"
+  },
+  "devDependencies": {
+    "canvas": "~1.0.3"
   }
 }
