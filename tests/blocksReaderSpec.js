@@ -35,9 +35,25 @@ describe("Reading Blocks", function(){
     expect(reader.canvasHeight).toEqual(50);
   });
 
-  it("Should detect the blocks", function(){
-    var detected = reader.read();
+  it("Should Parse each line correctly", function(){
+    var data = [
+      0,0,0,0,
+      1,1,1,1,
+      0,0,0,0,
+      1,2,3,0,
+      5,5,5,5,
+      0,0,0,0
+    ];
 
-    expect(detected).toEqual(blocks);
+    var detected = reader.parseLine(data, 1);
+    expect(detected[0]).toEqual({x: 0, y: 10, width: 10, height: 10});
+    expect(detected[1]).toEqual({x: 20, y: 10, width: 10, height: 10});
+    expect(detected[2]).toEqual({x: 50, y: 10, width: 10, height: 10});
   });
+
+  // it("Should detect the blocks", function(){
+  //   var detected = reader.read();
+
+  //   expect(detected).toEqual(blocks);
+  // });
 });
