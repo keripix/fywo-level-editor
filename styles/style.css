@@ -1,5 +1,14 @@
-#level-editor{
+#grids, #level-editor{
+    position: absolute;
     top: 20px;
     left: 20px;
+}
+
+#grids{
     background-color: #F1C40F;
+}
+
+#level-editor{
+    background-color: transparent;
+    z-index: 100;
 }

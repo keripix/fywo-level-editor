@@ -12,6 +12,7 @@ var canvas = document.getElementById('level-editor'),
 // lets draw the lines
 starter.drawLines(10, 10);
 // start painter
+// test this
 painter.start();
 },{"./libs/blocksPainter":2,"./libs/blocksReader":3,"./libs/canvasPositionDetector":4,"./libs/canvasStarter":5,"./libs/coordinateNorm":6}],2:[function(require,module,exports){
 "use strict";
@@ -36,6 +37,7 @@ function BlocksPainter(canvas, coordinateNormalizer, mousePosition, cfg){
 
   // drawing states
   this.isPainting = false;
+  this.tempBlock = undefined;
 }
 
 /**
@@ -55,14 +57,30 @@ BlocksPainter.prototype.onMouseDown = function(e) {
 };
 
 BlocksPainter.prototype.onMouseMove = function(e) {
+  var points = this.mp.getMousePosition(e),
+      normalizedPoints = this.cm.normalize(points, this.blockWidth, this.blockHeight);
   if (this.isPainting){
-    var points = this.mp.getMousePosition(e);
-    this.paintBlock(this.cm.normalize(points, this.blockWidth, this.blockHeight));
+
+    this.paintBlock(normalizedPoints);
+  } else {
+    if (this.tempBlock){
+      this.ctx.clearRect(this.tempBlock.x, this.tempBlock.y, this.tempBlock.width, this.tempBlock.height);
+    }
+
+    this.tempBlock = {
+      x: normalizedPoints.x,
+      y: normalizedPoints.y,
+      width: this.blockWidth,
+      height: this.blockHeight
+    };
+
+    this.ctx.fillRect(this.tempBlock.x, this.tempBlock.y, this.tempBlock.width, this.tempBlock.height);
   }
 };
 
 BlocksPainter.prototype.onMouseUp = function(e) {
   this.isPainting = false;
+  console.log("yoo");
 };
 
 /**
