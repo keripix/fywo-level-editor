@@ -3,6 +3,7 @@ module.exports = Reader;
 function Reader(conf){
   this.blockWidth = conf.blockWidth;
   this.blockHeight = conf.blockHeight;
+  this.detected = [];
 }
 
 Reader.prototype.read = function(canvas) {
@@ -12,26 +13,22 @@ Reader.prototype.read = function(canvas) {
       canvasWidth = canvas.width;
 
   // we will asume that each block has a width and height of 10
-  for (var i = 0, n = canvas.height; i < n; i += 10) {
-    detected = this.parseLine(ctx.getImageData(0, i, canvasWidth, i + 10).data, i / 10);
-
-    if (detected.length){
-      results.push(detected);
-    }
+  for (var i = 0, n = canvas.height; i < n; i += this.blockHeight) {
+    this.parseLine(ctx.getImageData(0, i, canvasWidth, 1).data, i / this.blockHeight);
+    // console.log(this.detected);
   }
 
   return results;
 };
 
 Reader.prototype.parseLine = function(data, line) {
-  var detected = [],
-      i = 0,
+  var i = 0,
       n = data.length;
 
   while( i < n) {
-    if (data[i] === 0){
-      detected.push({
-        x: i * this.blockWidth / 4,
+    if (data[i] === 0 && data[i+1] === 0 && data[i+2] === 0){
+      this.detected.push({
+        x: i / 4,
         y: line * this.blockHeight,
         width: this.blockWidth,
         height: this.blockHeight
@@ -40,6 +37,4 @@ Reader.prototype.parseLine = function(data, line) {
 
     i += 4*this.blockWidth;
   }
-
-  return detected;
 };
