@@ -1,5 +1,7 @@
 "use strict";
 
+var CanvasFactory = require("./canvasFactory");
+
 module.exports = BlocksPainter;
 
 /**
@@ -21,7 +23,18 @@ function BlocksPainter(canvas, coordinateNormalizer, mousePosition, cfg){
   // drawing states
   this.isPainting = false;
   this.tempBlock = undefined;
+
+  this.canvasFactory = new CanvasFactory();
+  this.bottomCanvas = undefined;
+  this.bottomCtx = undefined;
+
+  this.createAdditionalCanvas();
 }
+
+BlocksPainter.prototype.createAdditionalCanvas = function() {
+  this.bottomCanvas = this.canvasFactory.createBelow(this.canvas);
+  this.bottomCtx = this.bottomCanvas.getContext("2d");
+};
 
 /**
  * Start listening to mouse events on top of the canvas
@@ -58,9 +71,8 @@ BlocksPainter.prototype.onMouseMove = function(e) {
 
   if (this.isPainting){
     // if already painting, then paint this block
-    this.paintBlock(normalizedPoints);
+    this.paintBottomBlock(normalizedPoints);
   } else {
-    // then we need to clear out the previous temporary block
     if (this.tempBlock){
       this.ctx.clearRect(this.tempBlock.x, this.tempBlock.y, this.tempBlock.width, this.tempBlock.height);
     }
@@ -77,16 +89,11 @@ BlocksPainter.prototype.onMouseMove = function(e) {
 };
 
 /**
- * Mark isPainting to false. We also need to draw a block in which the
- * mouse was released.
+ * Mark isPainting to false.
  *
  * @param  {Object} e Event Object
  */
 BlocksPainter.prototype.onMouseUp = function(e) {
-  var points = this.mp.getMousePosition(e);
-
-  this.paintBlock(this.cm.normalize(points));
-
   this.isPainting = false;
   this.tempBlock = undefined;
 };
@@ -99,3 +106,12 @@ BlocksPainter.prototype.paintBlock = function(points) {
   this.ctx.fillStyle = "#000000";
   this.ctx.fillRect(points.x, points.y, this.blockWidth, this.blockHeight);
 };
+
+BlocksPainter.prototype.paintBottomBlock = function(points){
+  if (!this.bottomCtx){
+    return;
+  }
+
+  this.bottomCtx.fillStyle = "#000000";
+  this.bottomCtx.fillRect(points.x, points.y, this.blockWidth, this.blockHeight);
+}
