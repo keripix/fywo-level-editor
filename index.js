@@ -5,7 +5,7 @@ var CanvasStarter = require("./libs/canvasStarter"),
 
 var canvas = document.getElementById('level-editor'),
     starter = new CanvasStarter(canvas),
-    painter = new BlocksPainter(canvas);
+    painter = new BlocksPainter(canvas, new CoordinateNorm());
 
 // lets draw the lines
 starter.drawLines(10, 10);

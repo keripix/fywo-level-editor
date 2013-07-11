@@ -6,13 +6,15 @@ var CanvasStarter = require("./libs/canvasStarter"),
 
 var canvas = document.getElementById('level-editor'),
     starter = new CanvasStarter(canvas),
-    painter = new BlocksPainter(canvas);
+    painter = new BlocksPainter(canvas, new CoordinateNorm());
 
 // lets draw the lines
 starter.drawLines(10, 10);
 // start painter
 painter.start();
 },{"./libs/blocksPainter":2,"./libs/blocksReader":3,"./libs/canvasStarter":4,"./libs/coordinateNorm":5}],2:[function(require,module,exports){
+"use strict";
+
 module.exports = BlocksPainter;
 
 function BlocksPainter(canvas, coordinateNormalizer){
@@ -25,6 +27,12 @@ function BlocksPainter(canvas, coordinateNormalizer){
  * Start listening to mouse events on top of the canvas
  */
 BlocksPainter.prototype.start = function() {
+  this.canvas.addEventListener("mousedown", this.onMouseDown);
+  this.canvas.addEventListener("mousemove", this.onMouseMove);
+  this.canvas.addEventListener("mouseup", this.onMouseUp);
+};
+
+BlocksPainter.prototype.onMouseDown = function(e) {
   // body...
 };
 },{}],3:[function(require,module,exports){
