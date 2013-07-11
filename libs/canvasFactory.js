@@ -14,12 +14,12 @@ CanvasFactory.prototype.createBelow = function(canvas) {
   temp.width = canvas.width;
   temp.height = canvas.height;
 
-  temp.style.position = canvas.style.position;
-  temp.style.width = parseInt(canvas.width + "px";
-  temp.style.height = parseInt(canvas.height) + "px";
-  temp.style.top = parseInt(canvas.style.top) + "px";
-  temp.style.left = parseInt(canvas.style.left) + "px";
-  temp.style["background-color"] = canvas.style["background-color"];
+  var rect = canvas.getBoundingClientRect();
+
+  temp.style.position = "absolute";
+  temp.style.top = rect.top + "px";
+  temp.style.left = rect.left + "px";
+  temp.style["background-color"] = "transparent";
 
   temp.style["z-index"] = 99;
 

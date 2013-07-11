@@ -109,6 +109,7 @@ BlocksPainter.prototype.paintBlock = function(points) {
 
 BlocksPainter.prototype.paintBottomBlock = function(points){
   if (!this.bottomCtx){
+    console.log("noo");
     return;
   }
 
