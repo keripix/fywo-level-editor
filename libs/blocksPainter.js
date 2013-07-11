@@ -32,6 +32,12 @@ BlocksPainter.prototype.start = function() {
   this.canvas.addEventListener("mouseup", this.onMouseUp.bind(this));
 };
 
+/**
+ * Mark isPainting to true. We alse need to draw a new block on the point
+ * in which the mouse was pressed
+ *
+ * @param  {Object} e Event Object
+ */
 BlocksPainter.prototype.onMouseDown = function(e) {
   this.isPainting = true;
 
@@ -39,17 +45,26 @@ BlocksPainter.prototype.onMouseDown = function(e) {
   this.paintBlock(this.cm.normalize(points, this.blockWidth, this.blockHeight));
 };
 
+/**
+ * Draw blocks according to the mouse state. If we are already painting, then
+ * we need to draw the current block on the current positon. If not, then we
+ * need to draw a temporary block.
+ *
+ * @param  {Object} e Event Object
+ */
 BlocksPainter.prototype.onMouseMove = function(e) {
   var points = this.mp.getMousePosition(e),
       normalizedPoints = this.cm.normalize(points, this.blockWidth, this.blockHeight);
-  if (this.isPainting){
 
+  if (this.isPainting){
+    // if already painting, then paint this block
     this.paintBlock(normalizedPoints);
   } else {
+    // then we need to clear out the previous temporary block
     if (this.tempBlock){
       this.ctx.clearRect(this.tempBlock.x, this.tempBlock.y, this.tempBlock.width, this.tempBlock.height);
     }
-
+    // and then draw a new one
     this.tempBlock = {
       x: normalizedPoints.x,
       y: normalizedPoints.y,
@@ -61,9 +76,19 @@ BlocksPainter.prototype.onMouseMove = function(e) {
   }
 };
 
+/**
+ * Mark isPainting to false. We also need to draw a block in which the
+ * mouse was released.
+ *
+ * @param  {Object} e Event Object
+ */
 BlocksPainter.prototype.onMouseUp = function(e) {
+  var points = this.mp.getMousePosition(e);
+
+  this.paintBlock(this.cm.normalize(points));
+
   this.isPainting = false;
-  console.log("yoo");
+  this.tempBlock = undefined;
 };
 
 /**
