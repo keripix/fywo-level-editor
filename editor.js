@@ -42,7 +42,6 @@ function BlocksPainter(canvas, coordinateNormalizer, mousePosition, cfg){
  * Start listening to mouse events on top of the canvas
  */
 BlocksPainter.prototype.start = function() {
-  console.log("yoo");
   this.canvas.addEventListener("mousedown", this.onMouseDown.bind(this));
   this.canvas.addEventListener("mousemove", this.onMouseMove.bind(this));
   this.canvas.addEventListener("mouseup", this.onMouseUp.bind(this));
@@ -50,21 +49,29 @@ BlocksPainter.prototype.start = function() {
 
 BlocksPainter.prototype.onMouseDown = function(e) {
   this.isPainting = true;
+
+  var points = this.mp.getMousePosition(e);
+  this.paintBlock(this.cm.normalize(points, this.blockWidth, this.blockHeight));
 };
 
 BlocksPainter.prototype.onMouseMove = function(e) {
   if (this.isPainting){
-
-    var points = this.mp.getMousePosition(e),
-        normalizedPoints = this.cm.normalize(points, this.blockWidth, this.blockHeight);
-
-    this.ctx.fillStyle = "#000000";
-    this.ctx.fillRect(normalizedPoints.x, normalizedPoints.y, this.blockWidth, this.blockHeight);
+    var points = this.mp.getMousePosition(e);
+    this.paintBlock(this.cm.normalize(points, this.blockWidth, this.blockHeight));
   }
 };
 
 BlocksPainter.prototype.onMouseUp = function(e) {
   this.isPainting = false;
+};
+
+/**
+ * Paints the block. The points should've been normalized.
+ * @param  {Object} points The points to paint the block
+ */
+BlocksPainter.prototype.paintBlock = function(points) {
+  this.ctx.fillStyle = "#000000";
+  this.ctx.fillRect(points.x, points.y, this.blockWidth, this.blockHeight);
 };
 },{}],3:[function(require,module,exports){
 /**
