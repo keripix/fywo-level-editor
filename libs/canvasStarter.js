@@ -5,23 +5,28 @@
  * @param  {Number} xGridSpacing The spacing between the vertical grids
  * @param  {Number} yGridSpacing The spacing between the horizontal grids
  */
-module.exports = function(canvas, xGridSpacing, yGridSpacing){
-  var ctx = canvas.getContext("2d");
+module.exports = CanvasStarter;
 
+function CanvasStarter(canvas){
+  this.canvas = canvas;
+  this.ctx = canvas.getContext("2d");
+}
+
+CanvasStarter.prototype.drawLines = function(xGridSpacing, yGridSpacing){
   // line properties
-  ctx.strokeStyle = "#E74C3C";
+  this.ctx.strokeStyle = "#E74C3C";
 
-  ctx.beginPath();
+  this.ctx.beginPath();
   // draw vertical lines
-  for (var i = xGridSpacing, n = canvas.width; i < n; i += xGridSpacing){
-    ctx.moveTo(i, 0);
-    ctx.lineTo(i, canvas.height);
+  for (var i = xGridSpacing, n = this.canvas.width; i < n; i += xGridSpacing){
+    this.ctx.moveTo(i, 0);
+    this.ctx.lineTo(i, this.canvas.height);
   }
 
   // draw horizontal lines
-  for (var i = yGridSpacing, n = canvas.height; i < n; i += yGridSpacing){
-    ctx.moveTo(0, i);
-    ctx.lineTo(canvas.width, i);
+  for (i = yGridSpacing, n = this.canvas.height; i < n; i += yGridSpacing){
+    this.ctx.moveTo(0, i);
+    this.ctx.lineTo(this.canvas.width, i);
   }
-  ctx.stroke();
+  this.ctx.stroke();
 };

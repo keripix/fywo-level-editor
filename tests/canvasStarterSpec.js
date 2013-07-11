@@ -1,9 +1,10 @@
-var c = require("./../libs/canvasStarter"),
+var CanvasStarter = require("./../libs/canvasStarter"),
     Canvas = require("canvas"),
     canvas = new Canvas(100,100),
-    ctx = canvas.getContext("2d");
+    ctx = canvas.getContext("2d"),
+    c = new CanvasStarter(canvas);
 
-c(canvas, 10, 10);
+c.drawLines(10, 10);
 
 describe("Start Canvas", function(){
   it("Should draw vertical lines according to xGridSpacing", function(){
