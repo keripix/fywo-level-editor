@@ -2,38 +2,69 @@
 var CanvasStarter = require("./libs/canvasStarter"),
     CoordinateNorm = require("./libs/coordinateNorm"),
     BlockReader = require("./libs/blocksReader"),
-    BlocksPainter = require("./libs/blocksPainter");
+    BlocksPainter = require("./libs/blocksPainter"),
+    MousePosition = require("./libs/canvasPositionDetector");
 
 var canvas = document.getElementById('level-editor'),
     starter = new CanvasStarter(canvas),
-    painter = new BlocksPainter(canvas, new CoordinateNorm());
+    painter = new BlocksPainter(canvas, new CoordinateNorm(), new MousePosition(canvas), {blockWidth: 10, blockHeight: 10});
 
 // lets draw the lines
 starter.drawLines(10, 10);
 // start painter
 painter.start();
-},{"./libs/blocksPainter":2,"./libs/blocksReader":3,"./libs/canvasStarter":4,"./libs/coordinateNorm":5}],2:[function(require,module,exports){
+},{"./libs/blocksPainter":2,"./libs/blocksReader":3,"./libs/canvasPositionDetector":4,"./libs/canvasStarter":5,"./libs/coordinateNorm":6}],2:[function(require,module,exports){
 "use strict";
 
 module.exports = BlocksPainter;
 
-function BlocksPainter(canvas, coordinateNormalizer){
+/**
+ * Responsible to draw blocks on top of the canvas.
+ * @param {Canvas} canvas               Canvas
+ * @param {Object} coordinateNormalizer Normalize blocks position
+ * @param {Object} mousePosition        Get the mouse position on top
+ *                                      of the canvas
+ */
+function BlocksPainter(canvas, coordinateNormalizer, mousePosition, cfg){
   this.canvas = canvas;
   this.ctx = canvas.getContext("2d");
   this.cm = coordinateNormalizer;
+  this.mp = mousePosition;
+
+  this.blockWidth = cfg.blockWidth || 10;
+  this.blockHeight = cfg.blockHeight || 10;
+
+  // drawing states
+  this.isPainting = false;
 }
 
 /**
  * Start listening to mouse events on top of the canvas
  */
 BlocksPainter.prototype.start = function() {
-  this.canvas.addEventListener("mousedown", this.onMouseDown);
-  this.canvas.addEventListener("mousemove", this.onMouseMove);
-  this.canvas.addEventListener("mouseup", this.onMouseUp);
+  console.log("yoo");
+  this.canvas.addEventListener("mousedown", this.onMouseDown.bind(this));
+  this.canvas.addEventListener("mousemove", this.onMouseMove.bind(this));
+  this.canvas.addEventListener("mouseup", this.onMouseUp.bind(this));
 };
 
 BlocksPainter.prototype.onMouseDown = function(e) {
-  // body...
+  this.isPainting = true;
+};
+
+BlocksPainter.prototype.onMouseMove = function(e) {
+  if (this.isPainting){
+
+    var points = this.mp.getMousePosition(e),
+        normalizedPoints = this.cm.normalize(points, this.blockWidth, this.blockHeight);
+
+    this.ctx.fillStyle = "#000000";
+    this.ctx.fillRect(normalizedPoints.x, normalizedPoints.y, this.blockWidth, this.blockHeight);
+  }
+};
+
+BlocksPainter.prototype.onMouseUp = function(e) {
+  this.isPainting = false;
 };
 },{}],3:[function(require,module,exports){
 /**
@@ -83,6 +114,56 @@ Reader.prototype.parseLine = function(data, line) {
   }
 };
 },{}],4:[function(require,module,exports){
+"use strict";
+
+module.exports = CanvasPositionDetector;
+
+function CanvasPositionDetector(canvas){
+  this.canvas = canvas;
+
+  this.calculateCanvasPosition();
+}
+
+CanvasPositionDetector.prototype.calculateCanvasPosition = function(){
+  if (document.defaultView && document.defaultView.getComputedStyle) {
+    this.stylePaddingLeft = parseInt(document.defaultView.getComputedStyle(this.canvas, null)['paddingLeft'], 10) || 0;
+    this.stylePaddingTop  = parseInt(document.defaultView.getComputedStyle(this.canvas, null)['paddingTop'], 10) || 0;
+    this.styleBorderLeft  = parseInt(document.defaultView.getComputedStyle(this.canvas, null)['borderLeftWidth'], 10) || 0;
+    this.styleBorderTop   = parseInt(document.defaultView.getComputedStyle(this.canvas, null)['borderTopWidth'], 10) || 0;
+  }
+
+  var html = document.body.parentNode;
+
+  this.htmlTop = html.offsetTop;
+  this.htmlLeft = html.offsetLeft;
+};
+
+CanvasPositionDetector.prototype.getMousePosition = function(e) {
+  var offsetX = 0,
+      offsetY = 0,
+      mx,
+      my,
+      element = this.canvas;
+
+  if (element.offsetParent !== undefined) {
+    do {
+      offsetX += element.offsetLeft;
+      offsetY += element.offsetTop;
+    } while ((element = element.offsetParent));
+  }
+
+  // Add padding and border style widths to offset
+  // Also add the <html> offsets in case there's a position:fixed bar
+  offsetX += this.stylePaddingLeft + this.styleBorderLeft + this.htmlLeft;
+  offsetY += this.stylePaddingTop + this.styleBorderTop + this.htmlTop;
+
+  mx = e.pageX - offsetX;
+  my = e.pageY - offsetY;
+
+  // We return a simple javascript object (a hash) with x and y defined
+  return {x: mx, y: my};
+};
+},{}],5:[function(require,module,exports){
 /**
  * Responsible to prepare canvas. There will be grids drawn on top
  * of the canvas, horizontal grids and vertical grids.
@@ -115,7 +196,7 @@ CanvasStarter.prototype.drawLines = function(xGridSpacing, yGridSpacing){
   }
   this.ctx.stroke();
 };
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 /**
  * Responsible to place an item inside a certain
  * width x height boxes.
