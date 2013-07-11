@@ -4,6 +4,11 @@
     left: 20px;
 }
 
+.left-sidebar{
+    height: 630px;
+    min-width: 630px;
+}
+
 #grids{
     background-color: #F1C40F;
 }
@@ -13,15 +18,15 @@
     z-index: 100;
 }
 
-.left-sidebar{
+.right-sidebar{
     padding-top: 20px;
-    float: left;
 }
 
-.left-sidebar ul{
+.right-sidebar ul{
     list-style: none;
 }
 
 .conf-editor{
     margin-top: 5px;
+    height: 85%;
 }
