@@ -1,7 +1,7 @@
 {
     "src_files": [
-        "libs/**/*.js",
-        "tests/**/*Spec.js"
+        "libs/",
+        "tests/"
     ],
     "launch_in_dev": ["node"],
     "launchers": {

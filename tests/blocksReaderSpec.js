@@ -1,8 +1,8 @@
 var Reader = require("./../libs/blocksReader"),
     Canvas = require("canvas"),
     canvas,
-    blocks;
-
+    blocks
+;
 function drawBlocks(canvas, blocks){
   var ctx = canvas.getContext("2d");
   // draw the background color first

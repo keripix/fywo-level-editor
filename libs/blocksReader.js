@@ -1,3 +1,9 @@
+/**
+ * Module to read items placed on top of the canvas.
+ *
+ * TODO An item doesn't has to be a block.
+ */
+
 module.exports = Reader;
 
 function Reader(conf){
