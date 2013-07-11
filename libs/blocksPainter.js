@@ -116,3 +116,7 @@ BlocksPainter.prototype.paintBottomBlock = function(points){
   this.bottomCtx.fillStyle = "#000000";
   this.bottomCtx.fillRect(points.x, points.y, this.blockWidth, this.blockHeight);
 }
+
+BlocksPainter.prototype.getPaintedCanvas = function() {
+  return this.bottomCanvas;
+};

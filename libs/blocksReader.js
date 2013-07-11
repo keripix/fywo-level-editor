@@ -13,9 +13,7 @@ function Reader(conf){
 }
 
 Reader.prototype.read = function(canvas) {
-  var results = [],
-      detected,
-      ctx = canvas.getContext("2d"),
+  var ctx = canvas.getContext("2d"),
       canvasWidth = canvas.width;
 
   // we will asume that each block has a width and height of 10
@@ -24,7 +22,7 @@ Reader.prototype.read = function(canvas) {
     // console.log(this.detected);
   }
 
-  return results;
+  return this.detected;
 };
 
 Reader.prototype.parseLine = function(data, line) {
