@@ -12,9 +12,16 @@ module.exports = function(canvas, xGridSpacing, yGridSpacing){
   ctx.strokeStyle = "#E74C3C";
 
   ctx.beginPath();
+  // draw vertical lines
   for (var i = xGridSpacing, n = canvas.width; i < n; i += xGridSpacing){
     ctx.moveTo(i, 0);
     ctx.lineTo(i, canvas.height);
+  }
+
+  // draw horizontal lines
+  for (var i = yGridSpacing, n = canvas.height; i < n; i += yGridSpacing){
+    ctx.moveTo(0, i);
+    ctx.lineTo(canvas.width, i);
   }
   ctx.stroke();
 };
