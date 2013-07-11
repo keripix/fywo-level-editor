@@ -3,7 +3,11 @@
  * width x height boxes.
  */
 
-module.exports = function(point, blockWidth, blockHeight){
+module.exports = CoordinateNorm;
+
+function CoordinateNorm(){}
+
+CoordinateNorm.prototype.normalize = function(point, blockWidth, blockHeight) {
   return {
     x: point.x - (point.x % blockWidth),
     y: point.y - (point.y % blockHeight)

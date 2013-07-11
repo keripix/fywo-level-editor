@@ -1,14 +1,33 @@
 ;(function(e,t,n){function i(n,s){if(!t[n]){if(!e[n]){var o=typeof require=="function"&&require;if(!s&&o)return o(n,!0);if(r)return r(n,!0);throw new Error("Cannot find module '"+n+"'")}var u=t[n]={exports:{}};e[n][0].call(u.exports,function(t){var r=e[n][1][t];return i(r?r:t)},u,u.exports)}return t[n].exports}var r=typeof require=="function"&&require;for(var s=0;s<n.length;s++)i(n[s]);return i})({1:[function(require,module,exports){
 var CanvasStarter = require("./libs/canvasStarter"),
     CoordinateNorm = require("./libs/coordinateNorm"),
-    BlockReader = require("./libs/blocksReader");
+    BlockReader = require("./libs/blocksReader"),
+    BlocksPainter = require("./libs/blocksPainter");
 
 var canvas = document.getElementById('level-editor'),
-    starter = new CanvasStarter(canvas);
+    starter = new CanvasStarter(canvas),
+    painter = new BlocksPainter(canvas);
 
 // lets draw the lines
 starter.drawLines(10, 10);
-},{"./libs/blocksReader":2,"./libs/canvasStarter":3,"./libs/coordinateNorm":4}],2:[function(require,module,exports){
+// start painter
+painter.start();
+},{"./libs/blocksPainter":2,"./libs/blocksReader":3,"./libs/canvasStarter":4,"./libs/coordinateNorm":5}],2:[function(require,module,exports){
+module.exports = BlocksPainter;
+
+function BlocksPainter(canvas, coordinateNormalizer){
+  this.canvas = canvas;
+  this.ctx = canvas.getContext("2d");
+  this.cm = coordinateNormalizer;
+}
+
+/**
+ * Start listening to mouse events on top of the canvas
+ */
+BlocksPainter.prototype.start = function() {
+  // body...
+};
+},{}],3:[function(require,module,exports){
 /**
  * Module to read items placed on top of the canvas.
  *
@@ -55,7 +74,7 @@ Reader.prototype.parseLine = function(data, line) {
     i += 4*this.blockWidth;
   }
 };
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 /**
  * Responsible to prepare canvas. There will be grids drawn on top
  * of the canvas, horizontal grids and vertical grids.
@@ -88,13 +107,17 @@ CanvasStarter.prototype.drawLines = function(xGridSpacing, yGridSpacing){
   }
   this.ctx.stroke();
 };
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 /**
  * Responsible to place an item inside a certain
  * width x height boxes.
  */
 
-module.exports = function(point, blockWidth, blockHeight){
+module.exports = CoordinateNorm;
+
+function CoordinateNorm(){}
+
+CoordinateNorm.prototype.normalize = function(point, blockWidth, blockHeight) {
   return {
     x: point.x - (point.x % blockWidth),
     y: point.y - (point.y % blockHeight)
