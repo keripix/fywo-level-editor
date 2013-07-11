@@ -12,3 +12,16 @@
     background-color: transparent;
     z-index: 100;
 }
+
+.left-sidebar{
+    padding-top: 20px;
+    float: left;
+}
+
+.left-sidebar ul{
+    list-style: none;
+}
+
+.conf-editor{
+    margin-top: 5px;
+}

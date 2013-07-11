@@ -1,11 +1,28 @@
 <html>
 <head>
     <title>FYWO Level Editor</title>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="styles/style.css">
 </head>
 <body>
-    <canvas id="level-editor" width="600" height="600"></canvas>
-    <canvas id="grids" width="600" height="600">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span6">
+                <canvas id="level-editor" width="600" height="600"></canvas>
+                <canvas id="grids" width="600" height="600"></canvas>
+            </div>
+            <div class="left-sidebar">
+                <ul>
+                    <li>
+                        <button class="btn btn-success">Generate Level</button>
+                    </li>
+                    <li>
+                        <textarea class="conf-editor" rows="16"></textarea>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <script src="editor.js"></script>
 </body>
 </html>
