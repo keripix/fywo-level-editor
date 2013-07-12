@@ -8,5 +8,6 @@
         "Node": {
             "command": "jasmine-node tests"
         }
-    }
+    },
+    "before_tests": "browserify index.js -o editor.js"
 }
