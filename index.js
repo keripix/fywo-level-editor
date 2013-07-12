@@ -1,6 +1,5 @@
 var CanvasStarter = require("./libs/canvasStarter"),
     CoordinateNorm = require("./libs/coordinateNorm"),
-    BlockReader = require("./libs/blocksReader"),
     BlocksPainter = require("./libs/blocksPainter"),
     MousePosition = require("./libs/canvasPositionDetector"),
     GameBlockConf = require("./libs/gameBlockConfig");
@@ -9,8 +8,7 @@ var gameBlockConf = new GameBlockConf(),
     canvas = document.getElementById("level-editor"),
     gridCanvas = document.getElementById("grids"),
     starter = new CanvasStarter(gridCanvas),
-    painter = new BlocksPainter(canvas, new CoordinateNorm(), new MousePosition(canvas), gameBlockConf),
-    blockReader = new BlockReader(gameBlockConf);
+    painter = new BlocksPainter(canvas, new CoordinateNorm(), new MousePosition(canvas), gameBlockConf);
 
 // lets draw the lines
 starter.drawLines(10, 10);
