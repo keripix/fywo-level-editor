@@ -80,6 +80,25 @@ GameBlockConfig.prototype.blockExist = function(name, points){
   return found;
 };
 
-GameBlockConfig.prototype.deleteBlock = function(points) {
+GameBlockConfig.prototype.deletePaintedBlockItem = function(name, points) {
+  for (var i = this.paintedBlocks[name].length - 1; i >= 0; i--) {
+    if (this.paintedBlocks[name][i].x === points.x && this.paintedBlocks[name][i].y === points.y){
+      this.paintedBlocks[name].splice(i, 1);
+    }
+  }
+};
 
+/**
+ * Delete any blocks on this position
+ * @param  {Object} points Coordinate
+ */
+GameBlockConfig.prototype.deleteBlock = function(points) {
+  // iterate on blocks
+  this.deletePaintedBlockItem("blocks", points);
+  // iterate on actor
+  this.deletePaintedBlockItem("actor", points);
+  // iterate on key
+  this.deletePaintedBlockItem("key", points);
+  // iterate on exit
+  this.deletePaintedBlockItem("exit", points);
 };

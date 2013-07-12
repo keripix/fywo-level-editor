@@ -113,7 +113,12 @@ BlocksPainter.prototype.onMouseUp = function(e) {
  * @return {[type]}   [description]
  */
 BlocksPainter.prototype.onDoubleClick = function(e) {
-  // body...
+  var points = this.mp.getMousePosition(e),
+      normalized = this.cm.normalize(points, this.blockWidth, this.blockHeight);
+  // delete recorded block
+  this.cfg.deleteBlock(normalized);
+  // delete the block
+  this.deletePaintedBottomBlock(normalized);
 };
 
 /**
@@ -139,6 +144,14 @@ BlocksPainter.prototype.paintBottomBlock = function(points){
 
   // record this block
   this.cfg.addBlock(this.cfg.activeKey, points);
+};
+
+/**
+ * Delete a non-temporary block on this points
+ * @param  {Object} points Normalized Coordinate Position
+ */
+BlocksPainter.prototype.deletePaintedBottomBlock = function(points) {
+  this.bottomCtx.clearRect(points.x, points.y, this.blockWidth, this.blockHeight);
 };
 
 /**

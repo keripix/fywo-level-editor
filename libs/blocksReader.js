@@ -4,8 +4,6 @@
  * TODO An item doesn't has to be a block.
  */
 
-var colorString = require("color-string");
-
 module.exports = Reader;
 
 function Reader(conf){
@@ -29,11 +27,7 @@ Reader.prototype.read = function(canvas) {
 
 Reader.prototype.parseLine = function(data, line) {
   var i = 0,
-      n = data.length,
-      blockColor = colorString.getRgb(this.cfg.blocksColor),
-      exitColor = colorString.getRgb(this.cfg.exitColor),
-      actorColor = colorString.getRgb(this.cfg.actorColor),
-      keyColor = colorString.getRgb(this.cfg.keyColor);
+      n = data.length;
 
   while( i < n) {
     if (data[i] === 0 && data[i+1] === 0 && data[i+2] === 0){

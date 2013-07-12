@@ -17,8 +17,5 @@
   },
   "devDependencies": {
     "canvas": "~1.0.3"
-  },
-  "dependencies": {
-    "color-string": "~0.1.2"
   }
 }
