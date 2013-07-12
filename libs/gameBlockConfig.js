@@ -73,6 +73,7 @@ GameBlockConfig.prototype.blockExist = function(name, points){
   this.paintedBlocks[name].forEach(function(item){
     if (item.x === points.x && item.y === points.y){
       found = true;
+      return;
     }
   });
 
