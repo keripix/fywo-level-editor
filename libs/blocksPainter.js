@@ -50,6 +50,7 @@ BlocksPainter.prototype.start = function() {
   this.canvas.addEventListener("mousedown", this.onMouseDown.bind(this));
   this.canvas.addEventListener("mousemove", this.onMouseMove.bind(this));
   this.canvas.addEventListener("mouseup", this.onMouseUp.bind(this));
+  this.canvas.addEventListener("dblclick", this.onDoubleClick.bind(this));
 };
 
 /**
@@ -62,7 +63,7 @@ BlocksPainter.prototype.onMouseDown = function(e) {
   this.isPainting = true;
 
   var points = this.mp.getMousePosition(e);
-  this.paintBlock(this.cm.normalize(points, this.blockWidth, this.blockHeight));
+  this.paintBottomBlock(this.cm.normalize(points, this.blockWidth, this.blockHeight));
 };
 
 /**
@@ -104,6 +105,15 @@ BlocksPainter.prototype.onMouseMove = function(e) {
 BlocksPainter.prototype.onMouseUp = function(e) {
   this.isPainting = false;
   this.tempBlock = undefined;
+};
+
+/**
+ * Delete the blocks
+ * @param  {[type]} e [description]
+ * @return {[type]}   [description]
+ */
+BlocksPainter.prototype.onDoubleClick = function(e) {
+  // body...
 };
 
 /**

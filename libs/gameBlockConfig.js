@@ -79,3 +79,7 @@ GameBlockConfig.prototype.blockExist = function(name, points){
 
   return found;
 };
+
+GameBlockConfig.prototype.deleteBlock = function(points) {
+
+};
