@@ -4,7 +4,7 @@
   "description": "To make [Find-Your-Way-Out](https://github.com/keripix/find-your-way-out) levels easier.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "mini": "uglifyjs editor.js -m -o editor.min.js"
   },
   "repository": {
     "type": "git",
