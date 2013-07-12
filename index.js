@@ -4,14 +4,18 @@ var CanvasStarter = require("./libs/canvasStarter"),
     BlocksPainter = require("./libs/blocksPainter"),
     MousePosition = require("./libs/canvasPositionDetector");
 
-var canvas = document.getElementById("level-editor"),
+var gameConfiguration = {
+      blockWidth: 10,
+      blockHeight: 10,
+      actorColor: "rgb(236, 240, 241)",
+      blockColor: "rgb(1,1,1)",
+      exitColor: "rgb(39, 174, 96)"
+    },
+    canvas = document.getElementById("level-editor"),
     gridCanvas = document.getElementById("grids"),
     starter = new CanvasStarter(gridCanvas),
-    painter = new BlocksPainter(canvas, new CoordinateNorm(), new MousePosition(canvas), {blockWidth: 10, blockHeight: 10}),
-    blockReader = new BlockReader({
-      blockWidth: 10,
-      blockHeight: 10
-    });
+    painter = new BlocksPainter(canvas, new CoordinateNorm(), new MousePosition(canvas), gameConfiguration),
+    blockReader = new BlockReader(gameConfiguration);
 
 // lets draw the lines
 starter.drawLines(10, 10);
