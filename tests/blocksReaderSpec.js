@@ -1,5 +1,7 @@
 var Reader = require("./../libs/blocksReader"),
     Canvas = require("canvas"),
+    Cfg = require("./../libs/gameBlockConfig"),
+    cfg = new Cfg(),
     canvas,
     blocks
 ;
@@ -27,6 +29,8 @@ describe("Reading Blocks", function(){
       {x: 0, y: 40, width: 10, height: 10},
       {x: 10, y: 40, width: 10, height: 10}
     ];
+    cfg.blockHeight = 10;
+    cfg.blockWidth = 10;
   });
 
   it("Should Parse each line correctly with blockWidth = 1", function(){
@@ -38,8 +42,9 @@ describe("Reading Blocks", function(){
       5,5,5,5,
       0,0,0,0
     ];
-
-    var reader = new Reader({blockWidth:1,blockHeight:1});
+    cfg.blockWidth = 1;
+    cfg.blockHeight = 1;
+    var reader = new Reader(cfg);
 
     reader.parseLine(data, 0);
 
@@ -61,8 +66,9 @@ describe("Reading Blocks", function(){
       5,5,5,5,5,5,5,5,
       0,0,0,0,0,0,0,0
     ];
-
-    var reader = new Reader({blockWidth:2, blockHeight: 2});
+    cfg.blockWidth = 2;
+    cfg.blockHeight = 2;
+    var reader = new Reader(cfg);
 
     reader.parseLine(data, 1);
 
@@ -78,7 +84,7 @@ describe("Reading Blocks", function(){
   it("Should detect the blocks", function(){
     drawBlocks(canvas, blocks);
 
-    var reader = new Reader({blockWidth:10, blockHeight: 10});
+    var reader = new Reader(cfg);
 
     reader.read(canvas);
 
