@@ -16,9 +16,14 @@ function GameBlockConfig(conf){
   this.blockWidth = conf.blockWidth || 10;
   this.blockHeight = conf.blockHeight || 10;
 
-  this.paintedBlocks = [];
+  this.paintedBlocks = {
+    blocks: [],
+    actor: [],
+    exit: [],
+    key: []
+  };
 
-  this.activeColor = this.blockColor;
+  this.activeColor = this.blocksColor;
   this.activeKey = "blocksColor";
 }
 
@@ -39,6 +44,20 @@ GameBlockConfig.prototype.getActiveColor = function() {
   return this.activeColor;
 };
 
-GameBlockConfig.prototype.addBlock = function(color) {
+GameBlockConfig.prototype.addBlock = function(color, points) {
   color = color || this.activeKey;
+
+  var name = color.replace("Color", "");
+
+  if (!this.paintedBlocks[name]){
+    return;
+  }
+
+  this.paintedBlocks[name].push({
+    x: points.x,
+    y: points.y,
+    width: this.blockWidth,
+    height: this.blockHeight,
+    color: this[color]
+  });
 };

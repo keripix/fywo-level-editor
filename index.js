@@ -24,7 +24,7 @@ var generateBtn = document.getElementById("generate-btn"),
 
 // generate level configuration
 generateBtn.addEventListener("click", function(){
-  var config = blockReader.read(painter.getPaintedCanvas());
+  var config = gameBlockConf.paintedBlocks;
   levelEditor.value = JSON.stringify(config);
 });
 

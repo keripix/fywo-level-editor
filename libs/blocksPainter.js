@@ -126,7 +126,10 @@ BlocksPainter.prototype.paintBottomBlock = function(points){
 
   this.bottomCtx.fillStyle = this.cfg.getActiveColor();
   this.bottomCtx.fillRect(points.x, points.y, this.blockWidth, this.blockHeight);
-}
+
+  // record this block
+  this.cfg.addBlock(this.cfg.activeKey, points);
+};
 
 /**
  * Get the canvas which is used to draw the blocks. In this
