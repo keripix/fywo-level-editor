@@ -19,10 +19,17 @@ painter.start();
 
 // atach listener to generate-btn
 var generateBtn = document.getElementById("generate-btn"),
-    levelEditor = document.getElementById("conf-editor");
+    levelEditor = document.getElementById("conf-editor"),
+    blockButtonList = document.getElementById("block-btn-list");
 
 // generate level configuration
 generateBtn.addEventListener("click", function(){
   var config = blockReader.read(painter.getPaintedCanvas());
   levelEditor.value = JSON.stringify(config);
+});
+
+blockButtonList.addEventListener("click", function(e){
+  var id = e.target.id;
+
+  gameBlockConf.setActiveColor(id + "Color");
 });

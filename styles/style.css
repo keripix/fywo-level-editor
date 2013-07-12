@@ -4,11 +4,11 @@
     left: 120px;
 }
 
-.blocks-btn{
+#block-btn-list {
     padding-top: 20px;
 }
 
-.blocks-btn li{
+#block-btn-list li{
     width: 100%;
     margin-top: 5px;
 }
