@@ -91,6 +91,7 @@ BlocksPainter.prototype.onMouseMove = function(e) {
       height: this.blockHeight
     };
 
+    this.ctx.fillStyle = this.cfg.getActiveColor();
     this.ctx.fillRect(this.tempBlock.x, this.tempBlock.y, this.tempBlock.width, this.tempBlock.height);
   }
 };
@@ -110,7 +111,7 @@ BlocksPainter.prototype.onMouseUp = function(e) {
  * @param  {Object} points The points to paint the block
  */
 BlocksPainter.prototype.paintBlock = function(points) {
-  this.ctx.fillStyle = "#000000";
+  this.ctx.fillStyle = this.cfg.getActiveColor();
   this.ctx.fillRect(points.x, points.y, this.blockWidth, this.blockHeight);
 };
 
@@ -123,7 +124,7 @@ BlocksPainter.prototype.paintBottomBlock = function(points){
     return;
   }
 
-  this.bottomCtx.fillStyle = "#000000";
+  this.bottomCtx.fillStyle = this.cfg.getActiveColor();
   this.bottomCtx.fillRect(points.x, points.y, this.blockWidth, this.blockHeight);
 }
 
