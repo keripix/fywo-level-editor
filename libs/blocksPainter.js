@@ -31,6 +31,10 @@ function BlocksPainter(canvas, coordinateNormalizer, mousePosition, cfg){
   this.createAdditionalCanvas();
 }
 
+/**
+ * Create bottom layer canvas. This bottom canvas is used to
+ * draw non-temporary blocks
+ */
 BlocksPainter.prototype.createAdditionalCanvas = function() {
   this.bottomCanvas = this.canvasFactory.createBelow(this.canvas);
   this.bottomCtx = this.bottomCanvas.getContext("2d");
@@ -107,9 +111,12 @@ BlocksPainter.prototype.paintBlock = function(points) {
   this.ctx.fillRect(points.x, points.y, this.blockWidth, this.blockHeight);
 };
 
+/**
+ * Paint non-temporary block on the bottom canvas.
+ * @param  {Object} points The normalized coordinates
+ */
 BlocksPainter.prototype.paintBottomBlock = function(points){
   if (!this.bottomCtx){
-    console.log("noo");
     return;
   }
 
@@ -117,6 +124,12 @@ BlocksPainter.prototype.paintBottomBlock = function(points){
   this.bottomCtx.fillRect(points.x, points.y, this.blockWidth, this.blockHeight);
 }
 
+/**
+ * Get the canvas which is used to draw the blocks. In this
+ * case it is the bottom canvas
+ *
+ * @return {Object} Canvas
+ */
 BlocksPainter.prototype.getPaintedCanvas = function() {
   return this.bottomCanvas;
 };
