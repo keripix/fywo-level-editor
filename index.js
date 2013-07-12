@@ -29,7 +29,5 @@ generateBtn.addEventListener("click", function(){
 });
 
 blockButtonList.addEventListener("click", function(e){
-  var id = e.target.id;
-
-  gameBlockConf.setActiveColor(id + "Color");
+  gameBlockConf.setActiveColor(e.target.id + "Color");
 });

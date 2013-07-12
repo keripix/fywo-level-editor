@@ -25,7 +25,6 @@ GameBlockConfig.prototype.setActiveColor = function(name) {
   }
 
   this.activeColor = this[name];
-  console.log(this.activeColor);
 };
 
 /**
