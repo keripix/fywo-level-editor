@@ -53,6 +53,11 @@ GameBlockConfig.prototype.addBlock = function(color, points) {
     return;
   }
 
+  // dont paint if block already existed on the same point
+  if (this.blockExist(name, points)){
+    return;
+  }
+
   this.paintedBlocks[name].push({
     x: points.x,
     y: points.y,
@@ -60,4 +65,16 @@ GameBlockConfig.prototype.addBlock = function(color, points) {
     height: this.blockHeight,
     color: this[color]
   });
+};
+
+GameBlockConfig.prototype.blockExist = function(name, points){
+  var found = false;
+
+  this.paintedBlocks[name].forEach(function(item){
+    if (item.x === points.x && item.y === points.y){
+      found = true;
+    }
+  });
+
+  return found;
 };
