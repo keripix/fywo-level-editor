@@ -10,12 +10,15 @@ module.exports = BlocksPainter;
  * @param {Object} coordinateNormalizer Normalize blocks position
  * @param {Object} mousePosition        Get the mouse position on top
  *                                      of the canvas
+ * @param {Object} cfg                  Block Configuration
  */
 function BlocksPainter(canvas, coordinateNormalizer, mousePosition, cfg){
   this.canvas = canvas;
   this.ctx = canvas.getContext("2d");
   this.cm = coordinateNormalizer;
   this.mp = mousePosition;
+
+  this.cfg = cfg;
 
   this.blockWidth = cfg.blockWidth || 10;
   this.blockHeight = cfg.blockHeight || 10;

@@ -19,7 +19,6 @@ Reader.prototype.read = function(canvas) {
   // we will asume that each block has a width and height of 10
   for (var i = 0, n = canvas.height; i < n; i += this.blockHeight) {
     this.parseLine(ctx.getImageData(0, i, canvasWidth, 1).data, i / this.blockHeight);
-    // console.log(this.detected);
   }
 
   return this.detected;

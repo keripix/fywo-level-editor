@@ -1,7 +1,16 @@
 #grids, #level-editor{
     position: absolute;
     top: 20px;
-    left: 20px;
+    left: 120px;
+}
+
+.blocks-btn{
+    padding-top: 20px;
+}
+
+.blocks-btn li{
+    width: 100%;
+    margin-top: 5px;
 }
 
 .left-sidebar{

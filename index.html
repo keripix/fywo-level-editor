@@ -7,11 +7,19 @@
 <body>
     <div class="container-fluid">
         <div class="row-fluid">
+            <div class="span1 blocks-btn">
+                <ul class="nav nav-list">
+                    <li class="btn">Player</li>
+                    <li class="btn btn-success">Exit</li>
+                    <li class="btn btn-inverse">Blocks</li>
+                    <li class="btn btn-danger">Keys</li>
+                </ul>
+            </div>
             <div class="span6 left-sidebar">
                 <canvas id="level-editor" width="600" height="600"></canvas>
                 <canvas id="grids" width="600" height="600"></canvas>
             </div>
-            <div class="span6 right-sidebar">
+            <div class="span5 right-sidebar">
                 <ul>
                     <li>
                         <button id="generate-btn" class="btn btn-success">Generate Level</button>
